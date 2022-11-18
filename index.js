@@ -134,20 +134,20 @@ const selectWeather = (selectedTrack) => {
 
 
     return [
-        weatherTypeLabelMap[firstStintWeather],
-        weatherTypeLabelMap[secondStintWeather],
-        weatherTypeLabelMap[thirdStintWeather]
+        firstStintWeather,
+        secondStintWeather,
+        thirdStintWeather
     ];
 };
 
 const handleRunOnce = () => {
     const track = document.getElementById('trackSelect').value;
     const raceWeather = selectWeather(track);
-    document.getElementById('firstStint').innerHTML = raceWeather[0];
-    document.getElementById('secondStint').innerHTML = raceWeather[1];
-    document.getElementById('thirdStint').innerHTML = raceWeather[2];
+    document.getElementById('firstStint').innerHTML = weatherTypeLabelMap[raceWeather[0]];
+    document.getElementById('secondStint').innerHTML = weatherTypeLabelMap[raceWeather[1]];
+    document.getElementById('thirdStint').innerHTML = weatherTypeLabelMap[raceWeather[2]];
 
-    if (raceWeather.some(stint => stint === 'Wet' || stint === 'Very Wet')) document.getElementById('rain-gif').style.display = 'block';
+    if (raceWeather.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('rain-gif').style.display = 'block';
     else document.getElementById('rain-gif').style.display = 'none';
 };
 
