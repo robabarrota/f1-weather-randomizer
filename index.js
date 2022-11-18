@@ -147,7 +147,7 @@ const handleRunOnce = () => {
     document.getElementById('secondStint').innerHTML = raceWeather[1];
     document.getElementById('thirdStint').innerHTML = raceWeather[2];
 
-    if (raceWeather.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('rain-gif').style.display = 'block';
+    if (raceWeather.some(stint => stint === 'Wet' || stint === 'Very Wet')) document.getElementById('rain-gif').style.display = 'block';
     else document.getElementById('rain-gif').style.display = 'none';
 };
 
