@@ -35,6 +35,14 @@ const weatherTypes = [
     "veryWet",
 ];
 
+const weatherTypeLabelMap = {
+    clear: "Clear",
+    lightCloud: "Light Clouds",
+    overcast: "Overcast",
+    wet: "Wet",
+    veryWet: "Very Wet",
+}
+
 const getNextStintWeatherProbabilities = (currentStintWeatherType, wetChance) => {
     const nextStintWeatherProbabilities = weatherTypes.map((weatherType, index) => {
         const currentStintWeatherIndex = weatherTypes.indexOf(currentStintWeatherType);
@@ -125,15 +133,22 @@ const selectWeather = (selectedTrack) => {
     const thirdStintWeather = getOtherStintWeatherType(secondStintWeather, wetChance);
 
 
-    return [firstStintWeather, secondStintWeather, thirdStintWeather];
+    return [
+        weatherTypeLabelMap[firstStintWeather],
+        weatherTypeLabelMap[secondStintWeather],
+        weatherTypeLabelMap[thirdStintWeather]
+    ];
 };
 
 const handleRunOnce = () => {
     const track = document.getElementById('trackSelect').value;
     const raceWeather = selectWeather(track);
-    document.getElementById('firstStint').value = raceWeather[0];
-    document.getElementById('secondStint').value = raceWeather[1];
-    document.getElementById('thirdStint').value = raceWeather[2];
+    document.getElementById('firstStint').innerHTML = raceWeather[0];
+    document.getElementById('secondStint').innerHTML = raceWeather[1];
+    document.getElementById('thirdStint').innerHTML = raceWeather[2];
+
+    if (raceWeather.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('rain-gif').style.display = 'block';
+    else document.getElementById('rain-gif').style.display = 'none';
 };
 
 const handleRunMany = () => {
@@ -183,7 +198,14 @@ const handleRunMany = () => {
     document.getElementById('wetRacePercentageInput').value = wetRacePercentage;
 };
 
+const handleToggleTesting = () => {
+    const isSectionVisible = document.getElementById('testing-section').style.display === "block";
+    if (isSectionVisible) document.getElementById('testing-section').style.display = 'none';
+    else document.getElementById('testing-section').style.display = 'block';
+};
+
 window.onload = function () {
     document.getElementById('runOnce').onclick = handleRunOnce;
     document.getElementById('runMany').onclick = handleRunMany;
+    document.getElementById('toggle-testing').onclick = handleToggleTesting;
 };

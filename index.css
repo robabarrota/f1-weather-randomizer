@@ -1,0 +1,65 @@
+html {
+    line-height: 23px;
+    font-family: 'Titillium Web', Helvetica, sans-serif;
+    font-weight: 400;
+    letter-spacing: .2px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: none;
+}
+
+body {
+    padding: 8px;
+}
+
+h1 {
+    padding: 8px 0;
+}
+
+div {
+    padding: 4px 0;
+}
+
+#results-container {
+    display: flex;
+    justify-content: start;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+th,
+td {
+    padding: 4px;
+}
+
+.table-headers {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#rain-gif {
+    height: 105px;
+    display: none;
+    padding-left: 8px;
+}
+
+.stint-label {
+    width: 92px;
+}
+
+#testing-section {
+    display: none;
+}
+
+#toggle-testing {
+    margin-top: 8px;
+}
