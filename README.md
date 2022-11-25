@@ -9,7 +9,7 @@ Arbitrary numbers are used (for now) to calculate the likelihood of a wet race. 
 | Track | Chance of a Dry Race |
 | --- | ----------- |
 | Abu Dhabi| 98% |
-| Austia | 80% |
+| Austria | 80% |
 | Australia | 90% |
 | Azerbaijan | 90% |
 | Bahrain | 98% |
@@ -18,7 +18,7 @@ Arbitrary numbers are used (for now) to calculate the likelihood of a wet race. 
 | Canada | 70% |
 | China | 80% |
 | France | 70% |
-| Great Britain| 60% |
+| Great Britain | 60% |
 | Hungary | 75% |
 | Imola | 85% |
 | Italy | 85% |
