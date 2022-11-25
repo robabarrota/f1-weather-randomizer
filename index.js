@@ -1,6 +1,6 @@
 // Wet race probability for each track
 const trackWetProbabilities = [
-    { name: "Abu Dhabi", wetChance: 0.05 },
+    { name: "Abu Dhabi", wetChance: 0.02 },
     { name: "Austia", wetChance: 0.2 },
     { name: "Australia", wetChance: 0.1 },
     { name: "Azerbaijan", wetChance: 0.1 },
@@ -15,13 +15,13 @@ const trackWetProbabilities = [
     { name: "Imola", wetChance: 0.15 },
     { name: "Italy", wetChance: 0.15 },
     { name: "Japan", wetChance: 0.2 },
-    { name: "Mexico", wetChance: 0.2 },
-    { name: "Miami", wetChance: 0.2 },
+    { name: "Mexico", wetChance: 0.15 },
+    { name: "Miami", wetChance: 0.15 },
     { name: "Monaco", wetChance: 0.2 },
     { name: "Netherlands", wetChance: 0.3 },
     { name: "Portugal", wetChance: 0.2 },
-    { name: "Saudi Arabia", wetChance: 0.05 },
-    { name: "Singapore", wetChance: 0.2 },
+    { name: "Saudi Arabia", wetChance: 0.02 },
+    { name: "Singapore", wetChance: 0.25 },
     { name: "Spain", wetChance: 0.2 },
     { name: "USA", wetChance: 0.15 },
 ];
