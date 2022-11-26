@@ -20,6 +20,18 @@ div {
     padding: 4px 0;
 }
 
+.weather-button-container {
+    display: flex;
+    gap: 20px;
+}
+
+#copied-message {
+    opacity: 0;
+    color: grey;
+    padding: 0;
+    transition: opacity 1s;
+}
+
 .weather-container {
     display: flex;
     justify-content: start;

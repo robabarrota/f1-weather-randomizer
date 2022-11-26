@@ -205,6 +205,7 @@ const clearStintCells = () => {
     document.getElementById('third-race-stint').innerHTML = "";
     document.getElementById('third-race-stint-weather-icon').style.background = "";
 };
+
 const handleRunOnce = () => {
     clearStintCells();
     const track = document.getElementById('trackSelect').value;
@@ -216,10 +217,23 @@ const handleRunOnce = () => {
     setUpStintCell('second-race-stint', race[1]);
     setUpStintCell('third-race-stint', race[2]);
 
-    // if (race.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('race-rain-gif').style.display = 'block';
-    // else document.getElementById('race-rain-gif').style.display = 'none';
-    // if (qualifying.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('qualifying-rain-gif').style.display = 'block';
-    // else document.getElementById('qualifying-rain-gif').style.display = 'none';
+    const discordMessage = 
+        `_ _
+        ***WEATHER REPORT: Abu Dhabi***
+
+        **QUALIFYING**
+        Stint 1 - *${weatherTypeDisplayMap[qualifying[0]].label}* :sunny: 
+        Stint 2 - *${weatherTypeDisplayMap[qualifying[1]].label}* :white_sun_cloud: 
+        
+        **RACE**
+        Stint 1 - *${weatherTypeDisplayMap[race[0]].label}* :cloud: 
+        Stint 2 - *${weatherTypeDisplayMap[race[1]].label}* :cloud_rain: 
+        Stint 3 - *${weatherTypeDisplayMap[race[2]].label}* :thunder_cloud_rain:
+        _ _`;
+
+    navigator.clipboard.writeText(discordMessage);
+    document.getElementById('copied-message').style.opacity = 1;
+    setTimeout(() => document.getElementById('copied-message').style.opacity = 0, 3000);
 };
 
 const handleRunMany = () => {
