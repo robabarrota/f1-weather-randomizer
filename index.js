@@ -69,11 +69,11 @@ const wetWeatherTypes = [
 ];
 
 const weatherTypeDisplayMap = {
-    clear: {label: "Clear", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/day.svg'},
-    lightCloud: {label: "Light Clouds", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy-day-2.svg'},
-    overcast: {label: "Overcast", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy.svg'},
-    wet: {label: "Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-4.svg'},
-    veryWet: {label: "Very Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-6.svg'},
+    clear: {label: "Clear", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/day.svg', discordEmoji: ':sunny:'},
+    lightCloud: {label: "Light Clouds", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy-day-2.svg', discordEmoji: ':white_sun_cloud:'},
+    overcast: {label: "Overcast", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy.svg', discordEmoji: ':cloud:'},
+    wet: {label: "Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-4.svg', discordEmoji: ':cloud_rain:'},
+    veryWet: {label: "Very Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-6.svg', discordEmoji: ':thunder_cloud_rain:'},
 }
 
 const stickyWeight = 1;
@@ -222,13 +222,13 @@ const handleRunOnce = () => {
         ***WEATHER REPORT: Abu Dhabi***
 
         **QUALIFYING**
-        Stint 1 - *${weatherTypeDisplayMap[qualifying[0]].label}* :sunny: 
-        Stint 2 - *${weatherTypeDisplayMap[qualifying[1]].label}* :white_sun_cloud: 
+        Stint 1 - *${weatherTypeDisplayMap[qualifying[0]].label}* ${weatherTypeDisplayMap[qualifying[0]].discordEmoji}
+        Stint 2 - *${weatherTypeDisplayMap[qualifying[1]].label}* ${weatherTypeDisplayMap[qualifying[1]].discordEmoji}
         
         **RACE**
-        Stint 1 - *${weatherTypeDisplayMap[race[0]].label}* :cloud: 
-        Stint 2 - *${weatherTypeDisplayMap[race[1]].label}* :cloud_rain: 
-        Stint 3 - *${weatherTypeDisplayMap[race[2]].label}* :thunder_cloud_rain:
+        Stint 1 - *${weatherTypeDisplayMap[race[0]].label}* ${weatherTypeDisplayMap[race[0]].discordEmoji}
+        Stint 2 - *${weatherTypeDisplayMap[race[1]].label}* ${weatherTypeDisplayMap[race[1]].discordEmoji}
+        Stint 3 - *${weatherTypeDisplayMap[race[2]].label}* ${weatherTypeDisplayMap[race[2]].discordEmoji}
         _ _`;
 
     navigator.clipboard.writeText(discordMessage);
