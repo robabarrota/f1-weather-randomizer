@@ -1,36 +1,69 @@
 // Wet race probability for each track
 const trackWetProbabilities = [
-    { name: "Abu Dhabi", wetChance: 0.02 },
-    { name: "Austia", wetChance: 0.2 },
-    { name: "Australia", wetChance: 0.1 },
-    { name: "Azerbaijan", wetChance: 0.1 },
-    { name: "Bahrain", wetChance: 0.02 },
-    { name: "Belgium", wetChance: 0.3 },
-    { name: "Brazil", wetChance: 0.2 },
-    { name: "Canada", wetChance: 0.3 },
-    { name: "China", wetChance: 0.2 },
-    { name: "France", wetChance: 0.3 },
-    { name: "Great Britain", wetChance: 0.4 },
-    { name: "Hungary", wetChance: 0.25 },
-    { name: "Imola", wetChance: 0.15 },
-    { name: "Italy", wetChance: 0.15 },
-    { name: "Japan", wetChance: 0.2 },
-    { name: "Mexico", wetChance: 0.15 },
-    { name: "Miami", wetChance: 0.15 },
-    { name: "Monaco", wetChance: 0.2 },
-    { name: "Netherlands", wetChance: 0.3 },
-    { name: "Portugal", wetChance: 0.2 },
-    { name: "Saudi Arabia", wetChance: 0.02 },
-    { name: "Singapore", wetChance: 0.25 },
-    { name: "Spain", wetChance: 0.2 },
-    { name: "USA", wetChance: 0.15 },
+    { name: "Abu Dhabi", wetChance: 0.02 / 2},
+    { name: "Austria", wetChance: 0.2 / 2},
+    { name: "Australia", wetChance: 0.1 / 2},
+    { name: "Azerbaijan", wetChance: 0.1 / 2},
+    { name: "Bahrain", wetChance: 0.02 / 2},
+    { name: "Belgium", wetChance: 0.3 / 2},
+    { name: "Brazil", wetChance: 0.2 / 2},
+    { name: "Canada", wetChance: 0.3 / 2},
+    { name: "China", wetChance: 0.2 / 2},
+    { name: "France", wetChance: 0.3 / 2},
+    { name: "Great Britain", wetChance: 0.4 / 2},
+    { name: "Hungary", wetChance: 0.25 / 2},
+    { name: "Imola", wetChance: 0.15 / 2},
+    { name: "Italy", wetChance: 0.15 / 2},
+    { name: "Japan", wetChance: 0.2 / 2},
+    { name: "Mexico", wetChance: 0.15 / 2},
+    { name: "Miami", wetChance: 0.15 / 2},
+    { name: "Monaco", wetChance: 0.2 / 2},
+    { name: "Netherlands", wetChance: 0.3 / 2},
+    { name: "Portugal", wetChance: 0.2 / 2},
+    { name: "Saudi Arabia", wetChance: 0.02 / 2},
+    { name: "Singapore", wetChance: 0.25 / 2},
+    { name: "Spain", wetChance: 0.2 / 2},
+    { name: "USA", wetChance: 0.15 / 2},
 ];
+
+const multiplierWeight = 10;
+
+const maxWetChance = Math.max(...trackWetProbabilities.map(({wetChance}) => wetChance));
+const minWetChance = Math.min(...trackWetProbabilities.map(({wetChance}) => wetChance));
+
+const getNormalizedWetChance = wetChance => ((wetChance - minWetChance) / (maxWetChance - minWetChance));
+
+const getWeightedWeatherTypeMultipliers = wetChance => {
+    const normalizedWetChance = getNormalizedWetChance(wetChance);
+    const weightedWeatherTypeChances = weatherTypes.map((_, index) => 1 - Math.abs((index + 1) / (weatherTypes.length + 1) - normalizedWetChance));
+    const totalChances = weightedWeatherTypeChances.reduce((partialSum, a) => partialSum + a, 0);
+    const weightedWeatherProportions = weightedWeatherTypeChances.map(chance => chance / totalChances);
+
+    const dryWeightedWeatherProportions = weightedWeatherProportions.filter((_, index) => index <= 2);
+    const wetWeightedWeatherProportions = weightedWeatherProportions.filter((_, index) => index > 2);
+
+    const getWeightedWeatherMultipliers = (proportions) => {
+        const maxProportion = Math.max(...proportions);
+        const minProportion = Math.min(...proportions);
+    
+        const avgProportion = (maxProportion + minProportion) / 2;
+
+        return proportions.map(proportion => (proportion - avgProportion) * multiplierWeight + 1);
+    }
+
+    return [...getWeightedWeatherMultipliers(dryWeightedWeatherProportions), ...getWeightedWeatherMultipliers(wetWeightedWeatherProportions)]
+};
 
 // List of weather types
 const weatherTypes = [
     "clear",
     "lightCloud",
     "overcast",
+    "wet",
+    "veryWet",
+];
+
+const wetWeatherTypes = [
     "wet",
     "veryWet",
 ];
@@ -44,12 +77,14 @@ const weatherTypeLabelMap = {
 }
 
 const getNextStintWeatherProbabilities = (currentStintWeatherType, wetChance) => {
+    const weatherMultipliers = getWeightedWeatherTypeMultipliers(wetChance);
+
     const nextStintWeatherProbabilities = weatherTypes.map((weatherType, index) => {
         const currentStintWeatherIndex = weatherTypes.indexOf(currentStintWeatherType);
         const differenceToCurrentWeather = Math.abs(currentStintWeatherIndex - index);
         const weatherTypeProbability = (1 - ((differenceToCurrentWeather + 1) * 0.2)) * getWeatherTypeProbability(weatherType, wetChance);
 
-        return { type: weatherType, probability: weatherTypeProbability };
+        return { type: weatherType, probability: weatherTypeProbability * weatherMultipliers[index] };
     });
 
     return nextStintWeatherProbabilities;
@@ -75,10 +110,11 @@ const getWeatherTypeProbability = (weatherType, wetChance) => {
 
 // Gets probability of each weather type for a given wet chance
 const getFirstStintWeatherTypeProbabilities = (wetChance) => {
-    const weightedWeatherTypes = weatherTypes.map((weatherType) => {
+    const weatherMultipliers = getWeightedWeatherTypeMultipliers(wetChance);
+    const weightedWeatherTypes = weatherTypes.map((weatherType, index) => {
         return {
             type: weatherType,
-            probability: getWeatherTypeProbability(weatherType, wetChance),
+            probability: getWeatherTypeProbability(weatherType, wetChance) * weatherMultipliers[index],
         };
     });
 
@@ -161,11 +197,6 @@ const handleRunMany = () => {
         const raceWeather = selectWeather(track);
         weatherSelections.push(raceWeather);
     }
-
-    const wetWeatherTypes = [
-        "wet",
-        "veryWet",
-    ];
 
     const wetRaceCount = weatherSelections.filter(raceWeather => raceWeather.some(stint => wetWeatherTypes.includes(stint))).length;
 
