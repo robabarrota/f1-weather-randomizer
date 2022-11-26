@@ -1,125 +1,128 @@
 <html>
-<script src="./index.js"></script>
-<link rel="stylesheet" href="index.css">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <script src="./index.js"></script>
+  <link rel="stylesheet" href="index.css">
 
-<body>
-  <h1>F1 Weather Randomizer</h1>
-  <div>
-    <label for="trackSelect">Choose a track:</label>
-
-    <select id="trackSelect" name="trackSelect">
-      <option value="Abu Dhabi">Abu Dhabi</option>
-      <option value="Austria">Austria</option>
-      <option value="Australia">Australia</option>
-      <option value="Azerbaijan">Azerbaijan</option>
-      <option value="Bahrain">Bahrain</option>
-      <option value="Belgium">Belgium</option>
-      <option value="Brazil">Brazil</option>
-      <option value="Canada">Canada</option>
-      <option value="China">China</option>
-      <option value="France">France</option>
-      <option value="Great Britain">Great Britain</option>
-      <option value="Hungary">Hungary</option>
-      <option value="Imola">Imola</option>
-      <option value="Italy">Italy</option>
-      <option value="Japan">Japan</option>
-      <option value="Mexico">Mexico</option>
-      <option value="Miami">Miami</option>
-      <option value="Monaco">Monaco</option>
-      <option value="Netherlands">Netherlands</option>
-      <option value="Portugal">Portugal</option>
-      <option value="Saudi Arabia">Saudi Arabia</option>
-      <option value="Singapore">Singapore</option>
-      <option value="Spain">Spain</option>
-      <option value="USA">USA</option>
-    </select>
-  </div>
-
-  <div>
+  <body>
+    <h1>F1 Weather Randomizer</h1>
     <div>
-      <button id="runOnce">What's the weather like Ollie?</button>
-    </div>
+      <label for="trackSelect">Choose a track:</label>
 
-    <div id="results-container">
-      <table>
-        <tr>
-          <th class="table-headers">
-            <p>Stint</p>
-          </th>
-          <th class="table-headers">
-            <p>Weather</p>
-          </th>
-        </tr>
-        <tr>
-          <td>
-            <p>1</p>
-          </td>
-          <td>
-            <p class="stint-label" id="firstStint"></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>2</p>
-          </td>
-          <td>
-            <p class="stint-label" id="secondStint"></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>3</p>
-          </td>
-          <td>
-            <p class="stint-label" id="thirdStint"></p>
-          </td>
-        </tr>
-      </table>
-      <img id="rain-gif" src="ollie-its-gon-rain.gif" alt="It's gon rain">
-    </div>
-  </div>
-
-  <button id="toggle-testing">Toggle Large Scale Testing Stuff</button>
-  <div id="testing-section">
-    <hr>
-    <div><button id="runMany">Run it a bunch? (default 50 times)</button>
-      <input id="runCount" value="50"></input>
+      <select id="trackSelect" name="trackSelect">
+        <option value="Abu Dhabi">Abu Dhabi</option>
+        <option value="Austria">Austria</option>
+        <option value="Australia">Australia</option>
+        <option value="Azerbaijan">Azerbaijan</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Belgium">Belgium</option>
+        <option value="Brazil">Brazil</option>
+        <option value="Canada">Canada</option>
+        <option value="China">China</option>
+        <option value="France">France</option>
+        <option value="Great Britain">Great Britain</option>
+        <option value="Hungary">Hungary</option>
+        <option value="Imola">Imola</option>
+        <option value="Italy">Italy</option>
+        <option value="Japan">Japan</option>
+        <option value="Mexico">Mexico</option>
+        <option value="Miami">Miami</option>
+        <option value="Monaco">Monaco</option>
+        <option value="Netherlands">Netherlands</option>
+        <option value="Portugal">Portugal</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Singapore">Singapore</option>
+        <option value="Spain">Spain</option>
+        <option value="USA">USA</option>
+      </select>
     </div>
 
     <div>
       <div>
-        <label>Percentage of clear stints:</label>
-        <input id="clearStintPercentageInput"></input>
+        <button id="runOnce">What's the weather like Ollie?</button>
       </div>
-      <div>
-        <label>Percentage of lightCloud stints:</label>
-        <input id="lightCloudStintPercentageInput"></input>
-      </div>
-      <div>
-        <label>Percentage of overcast stints:</label>
-        <input id="overcastStintPercentageInput"></input>
-      </div>
-      <div>
-        <label>Percentage of wet stints:</label>
-        <input id="wetStintPercentageInput"></input>
-      </div>
-      <div>
-        <label>Percentage of veryWet stints:</label>
-        <input id="veryWetStintPercentageInput"></input>
-      </div>
-    </div>
-    <div>
-      <div>
-        <label>Percentage of dry races:</label>
-        <input id="dryRacePercentageInput"></input>
-      </div>
-      <div>
-        <label>Percentage of wet races:</label>
-        <input id="wetRacePercentageInput"></input>
-      </div>
-    </div>
-  </div>
 
-</body>
+      <div id="results-container">
+        <table>
+          <tr>
+            <th class="table-headers">
+              <p>Stint</p>
+            </th>
+            <th class="table-headers">
+              <p>Weather</p>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <p>1</p>
+            </td>
+            <td>
+              <p class="stint-label" id="firstStint"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>2</p>
+            </td>
+            <td>
+              <p class="stint-label" id="secondStint"></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>3</p>
+            </td>
+            <td>
+              <p class="stint-label" id="thirdStint"></p>
+            </td>
+          </tr>
+        </table>
+        <img id="rain-gif" src="ollie-its-gon-rain.gif" alt="It's gon rain">
+      </div>
+    </div>
+
+    <button id="toggle-testing">Toggle Large Scale Testing Stuff</button>
+    <div id="testing-section">
+      <hr>
+      <div><button id="runMany">Run it a bunch? (default 50 times)</button>
+        <input id="runCount" value="50"></input>
+      </div>
+
+      <div>
+        <div>
+          <label>Percentage of clear stints:</label>
+          <input id="clearStintPercentageInput"></input>
+        </div>
+        <div>
+          <label>Percentage of lightCloud stints:</label>
+          <input id="lightCloudStintPercentageInput"></input>
+        </div>
+        <div>
+          <label>Percentage of overcast stints:</label>
+          <input id="overcastStintPercentageInput"></input>
+        </div>
+        <div>
+          <label>Percentage of wet stints:</label>
+          <input id="wetStintPercentageInput"></input>
+        </div>
+        <div>
+          <label>Percentage of veryWet stints:</label>
+          <input id="veryWetStintPercentageInput"></input>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label>Percentage of dry races:</label>
+          <input id="dryRacePercentageInput"></input>
+        </div>
+        <div>
+          <label>Percentage of wet races:</label>
+          <input id="wetRacePercentageInput"></input>
+        </div>
+      </div>
+    </div>
+
+  </body>
 
 </html>
