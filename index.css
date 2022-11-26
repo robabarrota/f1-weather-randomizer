@@ -86,3 +86,7 @@ td {
 #toggle-testing {
     margin-top: 8px;
 }
+
+.stats-input {
+    width: 100px;
+}
