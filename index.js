@@ -76,13 +76,15 @@ const weatherTypeDisplayMap = {
     veryWet: {label: "Very Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-6.svg'},
 }
 
+const stickyWeight = 1;
+
 const getNextStintWeatherProbabilities = (currentStintWeatherType, wetChance) => {
     const weatherMultipliers = getWeightedWeatherTypeMultipliers(wetChance);
 
     const nextStintWeatherProbabilities = weatherTypes.map((weatherType, index) => {
         const currentStintWeatherIndex = weatherTypes.indexOf(currentStintWeatherType);
         const differenceToCurrentWeather = Math.abs(currentStintWeatherIndex - index);
-        const weatherTypeProbability = (1 - ((differenceToCurrentWeather + 1) * 0.2)) * getWeatherTypeProbability(weatherType, wetChance);
+        const weatherTypeProbability = (1 / ((differenceToCurrentWeather + 1) * stickyWeight)) * getWeatherTypeProbability(weatherType, wetChance);
 
         return { type: weatherType, probability: weatherTypeProbability * weatherMultipliers[index] };
     });
@@ -189,10 +191,22 @@ const setUpStintCell = (elementId, weatherType) => {
     document.getElementById(elementId).innerHTML = label;
     document.getElementById(`${elementId}-weather-icon`).style.background = `url(${iconUrl})`;
     document.getElementById(`${elementId}-weather-icon`).style.backgroundSize = 'contain';
+};
 
-}
-
+const clearStintCells = () => {
+    document.getElementById('first-qualifying-stint').innerHTML = "";
+    document.getElementById('first-qualifying-stint-weather-icon').style.background = "";
+    document.getElementById('second-qualifying-stint').innerHTML = "";
+    document.getElementById('second-qualifying-stint-weather-icon').style.background = "";
+    document.getElementById('first-race-stint').innerHTML = "";
+    document.getElementById('first-race-stint-weather-icon').style.background = "";
+    document.getElementById('second-race-stint').innerHTML = "";
+    document.getElementById('second-race-stint-weather-icon').style.background = "";
+    document.getElementById('third-race-stint').innerHTML = "";
+    document.getElementById('third-race-stint-weather-icon').style.background = "";
+};
 const handleRunOnce = () => {
+    clearStintCells();
     const track = document.getElementById('trackSelect').value;
     const {qualifying, race} = selectWeather(track);
     setUpStintCell('first-qualifying-stint', qualifying[0]);
