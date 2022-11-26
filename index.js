@@ -219,7 +219,7 @@ const handleRunOnce = () => {
 
     const discordMessage = 
         `_ _
-        ***WEATHER REPORT: Abu Dhabi***
+        ***WEATHER REPORT:*** Abu Dhabi
 
         **QUALIFYING**
         Stint 1 - *${weatherTypeDisplayMap[qualifying[0]].label}* ${weatherTypeDisplayMap[qualifying[0]].discordEmoji}
