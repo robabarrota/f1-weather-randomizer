@@ -1,29 +1,29 @@
 // Wet race probability for each track
 const trackWetProbabilities = [
-    { name: "Abu Dhabi", wetChance: 0.02 / 2},
-    { name: "Austria", wetChance: 0.2 / 2},
-    { name: "Australia", wetChance: 0.1 / 2},
-    { name: "Azerbaijan", wetChance: 0.1 / 2},
-    { name: "Bahrain", wetChance: 0.02 / 2},
-    { name: "Belgium", wetChance: 0.3 / 2},
-    { name: "Brazil", wetChance: 0.2 / 2},
-    { name: "Canada", wetChance: 0.3 / 2},
-    { name: "China", wetChance: 0.2 / 2},
-    { name: "France", wetChance: 0.3 / 2},
-    { name: "Great Britain", wetChance: 0.4 / 2},
-    { name: "Hungary", wetChance: 0.25 / 2},
-    { name: "Imola", wetChance: 0.15 / 2},
-    { name: "Italy", wetChance: 0.15 / 2},
-    { name: "Japan", wetChance: 0.2 / 2},
-    { name: "Mexico", wetChance: 0.15 / 2},
-    { name: "Miami", wetChance: 0.15 / 2},
-    { name: "Monaco", wetChance: 0.2 / 2},
-    { name: "Netherlands", wetChance: 0.3 / 2},
-    { name: "Portugal", wetChance: 0.2 / 2},
-    { name: "Saudi Arabia", wetChance: 0.02 / 2},
-    { name: "Singapore", wetChance: 0.25 / 2},
-    { name: "Spain", wetChance: 0.2 / 2},
-    { name: "USA", wetChance: 0.15 / 2},
+    { name: "Abu Dhabi", wetChance: 0.02 / 3},
+    { name: "Austria", wetChance: 0.2 / 3},
+    { name: "Australia", wetChance: 0.1 / 3},
+    { name: "Azerbaijan", wetChance: 0.1 / 3},
+    { name: "Bahrain", wetChance: 0.02 / 3},
+    { name: "Belgium", wetChance: 0.3 / 3},
+    { name: "Brazil", wetChance: 0.2 / 3},
+    { name: "Canada", wetChance: 0.3 / 3},
+    { name: "China", wetChance: 0.2 / 3},
+    { name: "France", wetChance: 0.3 / 3},
+    { name: "Great Britain", wetChance: 0.4 / 3},
+    { name: "Hungary", wetChance: 0.25 / 3},
+    { name: "Imola", wetChance: 0.15 / 3},
+    { name: "Italy", wetChance: 0.15 / 3},
+    { name: "Japan", wetChance: 0.2 / 3},
+    { name: "Mexico", wetChance: 0.15 / 3},
+    { name: "Miami", wetChance: 0.15 / 3},
+    { name: "Monaco", wetChance: 0.2 / 3},
+    { name: "Netherlands", wetChance: 0.3 / 3},
+    { name: "Portugal", wetChance: 0.2 / 3},
+    { name: "Saudi Arabia", wetChance: 0.02 / 3},
+    { name: "Singapore", wetChance: 0.25 / 3},
+    { name: "Spain", wetChance: 0.2 / 3},
+    { name: "USA", wetChance: 0.15 / 3},
 ];
 
 const multiplierWeight = 10;
@@ -68,12 +68,12 @@ const wetWeatherTypes = [
     "veryWet",
 ];
 
-const weatherTypeLabelMap = {
-    clear: "Clear",
-    lightCloud: "Light Clouds",
-    overcast: "Overcast",
-    wet: "Wet",
-    veryWet: "Very Wet",
+const weatherTypeDisplayMap = {
+    clear: {label: "Clear", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/day.svg'},
+    lightCloud: {label: "Light Clouds", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy-day-2.svg'},
+    overcast: {label: "Overcast", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/cloudy.svg'},
+    wet: {label: "Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-4.svg'},
+    veryWet: {label: "Very Wet", iconUrl: 'https://www.amcharts.com/wp-content/themes/amcharts4/css/img/icons/weather/animated/rainy-6.svg'},
 }
 
 const getNextStintWeatherProbabilities = (currentStintWeatherType, wetChance) => {
@@ -162,29 +162,50 @@ const selectWeather = (selectedTrack) => {
     const wetChance = trackWetProbabilities.find(
         (el) => el.name === selectedTrack
     )?.wetChance;
-    const firstStintWeather = getFirstStintWeatherType(wetChance);
 
-    const secondStintWeather = getOtherStintWeatherType(firstStintWeather, wetChance);
+    const qualifyingFirstStintWeather = getFirstStintWeatherType(wetChance);
+    const qualifyingSecondStintWeather = getOtherStintWeatherType(qualifyingFirstStintWeather, wetChance);
 
-    const thirdStintWeather = getOtherStintWeatherType(secondStintWeather, wetChance);
+    const raceFirstStintWeather = getFirstStintWeatherType(wetChance);
+    const raceSecondStintWeather = getOtherStintWeatherType(raceFirstStintWeather, wetChance);
+    const raceThirdStintWeather = getOtherStintWeatherType(raceSecondStintWeather, wetChance);
 
 
-    return [
-        firstStintWeather,
-        secondStintWeather,
-        thirdStintWeather
-    ];
+    return {
+        qualifying: [
+            qualifyingFirstStintWeather,
+            qualifyingSecondStintWeather
+        ],
+        race: [
+            raceFirstStintWeather,
+            raceSecondStintWeather,
+            raceThirdStintWeather
+        ]
+    };
 };
+
+const setUpStintCell = (elementId, weatherType) => {
+    const {label, iconUrl} = weatherTypeDisplayMap[weatherType];
+    document.getElementById(elementId).innerHTML = label;
+    document.getElementById(`${elementId}-weather-icon`).style.background = `url(${iconUrl})`;
+    document.getElementById(`${elementId}-weather-icon`).style.backgroundSize = 'contain';
+
+}
 
 const handleRunOnce = () => {
     const track = document.getElementById('trackSelect').value;
-    const raceWeather = selectWeather(track);
-    document.getElementById('firstStint').innerHTML = weatherTypeLabelMap[raceWeather[0]];
-    document.getElementById('secondStint').innerHTML = weatherTypeLabelMap[raceWeather[1]];
-    document.getElementById('thirdStint').innerHTML = weatherTypeLabelMap[raceWeather[2]];
+    const {qualifying, race} = selectWeather(track);
+    setUpStintCell('first-qualifying-stint', qualifying[0]);
+    setUpStintCell('second-qualifying-stint', qualifying[1]);
 
-    if (raceWeather.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('rain-gif').style.display = 'block';
-    else document.getElementById('rain-gif').style.display = 'none';
+    setUpStintCell('first-race-stint', race[0]);
+    setUpStintCell('second-race-stint', race[1]);
+    setUpStintCell('third-race-stint', race[2]);
+
+    // if (race.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('race-rain-gif').style.display = 'block';
+    // else document.getElementById('race-rain-gif').style.display = 'none';
+    // if (qualifying.some(stint => stint === 'wet' || stint === 'veryWet')) document.getElementById('qualifying-rain-gif').style.display = 'block';
+    // else document.getElementById('qualifying-rain-gif').style.display = 'none';
 };
 
 const handleRunMany = () => {
@@ -194,27 +215,27 @@ const handleRunMany = () => {
     const numberOfSelections = runCount || 50;
     const weatherSelections = [];
     for (let i = 0; i < numberOfSelections; i++) {
-        const raceWeather = selectWeather(track);
-        weatherSelections.push(raceWeather);
+        const {qualifying, race} = selectWeather(track);
+        weatherSelections.push([...qualifying, ...race]);
     }
 
     const wetRaceCount = weatherSelections.filter(raceWeather => raceWeather.some(stint => wetWeatherTypes.includes(stint))).length;
 
     const clearStintPercentage = Math.round(weatherSelections.reduce(
         (totalCount, raceWeather) => totalCount + raceWeather.filter(stint => stint === "clear").length
-        , 0) / (numberOfSelections * 3) * 100);
+        , 0) / (numberOfSelections * 5) * 100);
     const lightCloudStintPercentage = Math.round(weatherSelections.reduce(
         (totalCount, raceWeather) => totalCount + raceWeather.filter(stint => stint === "lightCloud").length
-        , 0) / (numberOfSelections * 3) * 100);
+        , 0) / (numberOfSelections * 5) * 100);
     const overcastStintPercentage = Math.round(weatherSelections.reduce(
         (totalCount, raceWeather) => totalCount + raceWeather.filter(stint => stint === "overcast").length
-        , 0) / (numberOfSelections * 3) * 100);
+        , 0) / (numberOfSelections * 5) * 100);
     const wetStintPercentage = Math.round(weatherSelections.reduce(
         (totalCount, raceWeather) => totalCount + raceWeather.filter(stint => stint === "wet").length
-        , 0) / (numberOfSelections * 3) * 100);
+        , 0) / (numberOfSelections * 5) * 100);
     const veryWetStintPercentage = Math.round(weatherSelections.reduce(
         (totalCount, raceWeather) => totalCount + raceWeather.filter(stint => stint === "veryWet").length
-        , 0) / (numberOfSelections * 3) * 100);
+        , 0) / (numberOfSelections * 5) * 100);
 
     const wetRacePercentage = Math.round((wetRaceCount / numberOfSelections) * 100);
     const dryRacePercentage = 100 - wetRacePercentage;

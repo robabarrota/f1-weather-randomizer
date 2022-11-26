@@ -43,7 +43,8 @@
         <button id="runOnce">What's the weather like Ollie?</button>
       </div>
 
-      <div id="results-container">
+      <h3>Qualifying</h3>
+      <div id="qualifying-weather-container" class="weather-container">
         <table>
           <tr>
             <th class="table-headers">
@@ -58,7 +59,10 @@
               <p>1</p>
             </td>
             <td>
-              <p class="stint-label" id="firstStint"></p>
+              <div class="stint-container">
+                <p class="stint-label" id="first-qualifying-stint"></p>
+                <i class="weather-icon" id="first-qualifying-stint-weather-icon"></i>
+              </div>
             </td>
           </tr>
           <tr>
@@ -66,7 +70,46 @@
               <p>2</p>
             </td>
             <td>
-              <p class="stint-label" id="secondStint"></p>
+              <div class="stint-container">
+                <p class="stint-label" id="second-qualifying-stint"></p>
+                <i class="weather-icon" id="second-qualifying-stint-weather-icon"></i>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Race</h3>
+      <div id="race-weather-container" class="weather-container">
+        <table>
+          <tr>
+            <th class="table-headers">
+              <p>Stint</p>
+            </th>
+            <th class="table-headers">
+              <p>Weather</p>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <p>1</p>
+            </td>
+            <td>
+              <div class="stint-container">
+                <p class="stint-label" id="first-race-stint"></p>
+                <i class="weather-icon" id="first-race-stint-weather-icon"></i>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>2</p>
+            </td>
+            <td>
+              <div class="stint-container">
+                <p class="stint-label" id="second-race-stint"></p>
+                <i class="weather-icon" id="second-race-stint-weather-icon"></i>
+              </div>
             </td>
           </tr>
           <tr>
@@ -74,11 +117,13 @@
               <p>3</p>
             </td>
             <td>
-              <p class="stint-label" id="thirdStint"></p>
+              <div class="stint-container">
+                <p class="stint-label" id="third-race-stint"></p>
+                <i class="weather-icon" id="third-race-stint-weather-icon"></i>
+              </div>
             </td>
           </tr>
         </table>
-        <img id="rain-gif" src="ollie-its-gon-rain.gif" alt="It's gon rain">
       </div>
     </div>
 
