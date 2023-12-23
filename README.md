@@ -23,11 +23,13 @@ Arbitrary numbers are used (for now) to calculate the likelihood of a wet race. 
 | Imola | 79% |
 | Italy | 67% |
 | Japan | 65% |
+| Las Vegas | 95% |
 | Mexico | 66% |
 | Miami | 68% |
 | Monaco | 76% |
 | Netherlands | 64% |
 | Portugal | 87% |
+| Qatar | 76% |
 | Saudi Arabia| 95% |
 | Singapore | 54% |
 | Spain | 78% |
